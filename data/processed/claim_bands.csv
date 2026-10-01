@@ -1,0 +1,5 @@
+Group,Customers,Share,Response Rate,Avg CLV,Avg Claim,Avg Monthly Premium,Avg Policies,Complaint Rate
+Low,4567,0.5,0.1274,6863.02,229.58,78.48,2.99,0.2152
+Moderate,2283,0.2499,0.1787,8033.76,467.72,90.46,2.97,0.2081
+High,1370,0.15,0.1577,8938.9,637.94,108.63,2.88,0.1832
+Very High,914,0.1001,0.1116,12238.88,1066.42,150.64,3.0,0.1893

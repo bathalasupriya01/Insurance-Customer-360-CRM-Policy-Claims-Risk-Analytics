@@ -1,0 +1,98 @@
+-- Insurance Customer 360 - Core DAX measures
+-- Table name assumed: CustomerAnalysis
+
+Customers =
+DISTINCTCOUNT(CustomerAnalysis[Customer])
+
+Responders =
+CALCULATE(
+    [Customers],
+    CustomerAnalysis[Response] = "Yes"
+)
+
+Response Rate =
+DIVIDE([Responders], [Customers])
+
+Average CLV =
+AVERAGE(CustomerAnalysis[Customer Lifetime Value])
+
+Average Monthly Premium =
+AVERAGE(CustomerAnalysis[Monthly Premium Auto])
+
+Average Claim Amount =
+AVERAGE(CustomerAnalysis[Total Claim Amount])
+
+Policies =
+SUM(CustomerAnalysis[Number of Policies])
+
+Avg Policies per Customer =
+AVERAGE(CustomerAnalysis[Number of Policies])
+
+Customers With Open Complaints =
+CALCULATE(
+    [Customers],
+    CustomerAnalysis[Number of Open Complaints] > 0
+)
+
+Open Complaint Customer Rate =
+DIVIDE([Customers With Open Complaints], [Customers])
+
+Claim to Annual Premium Proxy =
+DIVIDE(
+    SUM(CustomerAnalysis[Total Claim Amount]),
+    SUM(CustomerAnalysis[Monthly Premium Auto]) * 12
+)
+
+High Value Customers =
+VAR CLV75 =
+    PERCENTILEX.INC(
+        ALL(CustomerAnalysis),
+        CustomerAnalysis[Customer Lifetime Value],
+        0.75
+    )
+RETURN
+CALCULATE(
+    [Customers],
+    FILTER(
+        CustomerAnalysis,
+        CustomerAnalysis[Customer Lifetime Value] >= CLV75
+    )
+)
+
+High Value Non-Responders =
+VAR CLV75 =
+    PERCENTILEX.INC(
+        ALL(CustomerAnalysis),
+        CustomerAnalysis[Customer Lifetime Value],
+        0.75
+    )
+RETURN
+CALCULATE(
+    [Customers],
+    FILTER(
+        CustomerAnalysis,
+        CustomerAnalysis[Customer Lifetime Value] >= CLV75
+            && CustomerAnalysis[Response] = "No"
+    )
+)
+
+High Value Non-Responder Rate =
+DIVIDE([High Value Non-Responders], [Customers])
+
+Claim P90 =
+PERCENTILEX.INC(
+    ALL(CustomerAnalysis),
+    CustomerAnalysis[Total Claim Amount],
+    0.90
+)
+
+Very High Claim Customers =
+VAR P90 = [Claim P90]
+RETURN
+CALCULATE(
+    [Customers],
+    FILTER(
+        CustomerAnalysis,
+        CustomerAnalysis[Total Claim Amount] > P90
+    )
+)

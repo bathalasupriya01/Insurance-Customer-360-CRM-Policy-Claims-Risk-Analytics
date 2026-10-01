@@ -1,0 +1,38 @@
+{
+  "name": "Insurance Customer 360",
+  "dataColors": [
+    "#183B56",
+    "#2F6690",
+    "#3A7D78",
+    "#8AA6B5",
+    "#C7D4DD",
+    "#D98C5F"
+  ],
+  "background": "#F7F9FB",
+  "foreground": "#1F2933",
+  "tableAccent": "#2F6690",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [
+          {
+            "show": true,
+            "fontSize": 12,
+            "fontFamily": "Segoe UI",
+            "color": {
+              "solid": {
+                "color": "#1F2933"
+              }
+            }
+          }
+        ],
+        "labels": [
+          {
+            "fontSize": 10,
+            "fontFamily": "Segoe UI"
+          }
+        ]
+      }
+    }
+  }
+}
